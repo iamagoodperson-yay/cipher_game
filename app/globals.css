@@ -1,14 +1,11 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #6f3822;
+  --foreground: #917668;
+
+  --text-primary: #30160e;
+  --text-secondary: #c08865;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html {
   height: 100%;

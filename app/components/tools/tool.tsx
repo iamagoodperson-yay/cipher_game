@@ -1,6 +1,6 @@
 'use client';
 import styles from './page.module.css';
-import { toolChoice, tools } from '../../scripts/tools';
+import { toolChoice, tools } from '../../scripts/gameHelper';
 import { useState } from 'react';
 
 const Tool = ({ tooltype }: { tooltype: toolChoice }) => {

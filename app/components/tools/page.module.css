@@ -2,8 +2,9 @@
   gap: 1rem;
   width: 30vw;
   padding: 0 1rem;
+  background-color: var(--text-secondary);
 
-  border: 1px var(--foreground);
+  border: 1px var(--secondary);
   border-style: solid solid none solid;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;

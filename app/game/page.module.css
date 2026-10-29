@@ -1,6 +1,15 @@
 .page {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
+}
+
+.evidence {
+  position: fixed;
+  cursor: grab;
+  
+  padding: 1.5rem;
+  background-color: var(--paper-colour);
 }
 
 .bottomBar {
@@ -8,11 +17,9 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  gap: 2.5vw;
-  padding: 0 2.5vw;
 
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-end;
 }

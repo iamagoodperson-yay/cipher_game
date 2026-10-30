@@ -8,8 +8,17 @@ export const tools: Record<toolChoice, string> = {
 
 export type evidenceChoice = 1 | 2 | 3;
 
-export const evidence: Record<evidenceChoice, string> = {
-  1: "Evidence 1",
-  2: "Evidence 2",
-  3: "Evidence 3",
+export const evidence: Record<evidenceChoice, Record<string, string>> = {
+  1: {
+    "description": "Evidence 1",
+    "details": "Details about Evidence 1"
+  },
+  2: {
+    "description": "Evidence 2",
+    "details": "More details about Evidence 2"
+  },
+  3: {
+    "description": "Evidence 3",
+    "details": "More details about Evidence 3"
+  },
 };

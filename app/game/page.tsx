@@ -12,15 +12,16 @@ export default function Game() {
 
     for (const evidence of evidenceRef) {
       const elmnt = evidence as HTMLElement;
-      if (!elmnt) return;
-      
-      let startLeft: number;
-      let startTop: number;
-
-      let startX: number;
-      let startY: number;
 
       function dragMouseDown(e: MouseEvent) {
+        let startLeft: number;
+        let startTop: number;
+
+        let startX: number;
+        let startY: number;
+
+        const totalEvidence = evidenceRef.length;
+
         e.preventDefault();
         const rect = elmnt.getBoundingClientRect();
 
@@ -32,36 +33,49 @@ export default function Game() {
 
         elmnt.style.cursor = "grabbing";
 
-        document.addEventListener("mouseup", closeDragElement);
-        document.addEventListener("mousemove", elementDrag);
-      }
-        
-      function elementDrag(e: MouseEvent) {
-        if (!elmnt) return;
-        e.preventDefault();
-        
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        
-        elmnt.style.left = `${startLeft + dx}px`;
-        elmnt.style.top = `${startTop + dy}px`;
-      }
-        
-      function closeDragElement() {
-        if (!elmnt) return;
-        elmnt.style.cursor = "grab";
+        for (const otherEvidence of evidenceRef) {
+          const other = otherEvidence as HTMLElement;
 
-        document.removeEventListener("mouseup", closeDragElement);
-        document.removeEventListener("mousemove", elementDrag);
+          if (other === elmnt) {
+            other.style.zIndex = totalEvidence.toString();
+          } else {
+            const currentZIndex = parseInt(other.style.zIndex || "1");
+            other.style.zIndex = String(Math.max(1, currentZIndex - 1));
+          }
+        }
+          
+        function elementDrag(e: MouseEvent) {
+          e.preventDefault();
+          
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          
+          elmnt.style.left = `${startLeft + dx}px`;
+          elmnt.style.top = `${startTop + dy}px`;
+        }
+          
+        function closeDragElement() {
+          elmnt.style.cursor = "grab";
+
+          document.removeEventListener("mouseup", closeDragElement);
+          document.removeEventListener("mousemove", elementDrag);
+        }
+
+        document.addEventListener("mousemove", elementDrag);
+        document.addEventListener("mouseup", closeDragElement);
       }
-      
+        
       elmnt.addEventListener("mousedown", dragMouseDown);
       
       cleanups.push(() => {
         elmnt.removeEventListener("mousedown", dragMouseDown);
-        closeDragElement();
       });
     }
+
+    return () => {
+      cleanups.forEach(cleanup => cleanup());
+    };
+
   }, []);
 
   return (
@@ -71,7 +85,13 @@ export default function Game() {
           <div
             key={key}
             className={styles.evidence}
-            style={{ width: "40vw" }}
+            style={{
+              zIndex: parseInt(key) + 1,
+              width: value.width,
+              height: value.height,
+              top: `${(parseInt(key) - 1) * 20}%`,
+              left: value.left
+            }}
           >
             <h2>{value.description}</h2>
             <p>{value.details}</p>

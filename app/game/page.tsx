@@ -14,22 +14,22 @@ export default function Game() {
       const elmnt = evidence as HTMLElement;
 
       function dragMouseDown(e: MouseEvent) {
+        e.preventDefault();
         let startLeft: number;
         let startTop: number;
 
         let startX: number;
         let startY: number;
-
-        const totalEvidence = evidenceRef.length;
-
-        e.preventDefault();
+        
         const rect = elmnt.getBoundingClientRect();
-
+        
         startLeft = rect.left;
         startTop = rect.top;
-
+        
         startX = e.clientX;
         startY = e.clientY;
+        
+        const totalEvidence = evidenceRef.length + 1;
 
         elmnt.style.cursor = "grabbing";
 

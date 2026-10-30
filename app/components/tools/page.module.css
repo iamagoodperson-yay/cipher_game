@@ -1,7 +1,7 @@
 .column {
   height: 1rem;
   width: 30vw;
-  padding: 1rem;
+  padding: 1.5rem;
   gap: 1rem;
   background-color: var(--text-secondary);
 
@@ -20,7 +20,6 @@
 }
 
 .column:hover, .column.opened {
-  padding-top: 2rem;
   padding-bottom: 5vh;
 }
 

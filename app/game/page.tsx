@@ -63,7 +63,7 @@ export default function Game() {
           style={{ width: "40vw" }}
         >
           <h2>{evidence[1]}</h2>
-          <p>Deserunt ad officia do. Sit sit in exercitation ipsum elit minim fugiat adipisicing aliqua qui. Ut pariatur non proident voluptate minim proident eu aute in deserunt. Nostrud amet ipsum incididunt id non sint labore voluptate mollit nisi cillum nisi Lorem. Esse ipsum velit in eiusmod do Lorem sint culpa ad elit culpa duis dolor. Mollit culpa incididunt sit do sint tempor aliqua anim laborum fugiat deserunt ex. Commodo voluptate aliquip labore ad aute nulla aute adipisicing voluptate proident. Consectetur ut amet culpa amet quis aliquip cillum ut quis.</p>
+          <p>Something something piece of evidence</p>
         </div>
       </div>
 

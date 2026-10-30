@@ -1,24 +1,31 @@
 'use client';
 import styles from './page.module.css';
 import { toolChoice, tools } from '../../scripts/gameHelper';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
-  const [opened, setOpened] = useState(false);
+ const [open, setOpen] = useState(false);
+ const columnRef = useRef<HTMLDivElement>(null);
 
-  if (opened) {
-    return (
-      <div className={styles.column} onClick={() => setOpened(false)}>
-        <h2 className={styles.title}>{tools[tooltype]}</h2>
-        <p>Opened</p>
-      </div>
-    );
-  }
-
+ useEffect(() => {
+   if (open) {
+      columnRef.current?.classList.add(styles.opened);
+   } else {
+      columnRef.current?.classList.remove(styles.opened);
+   }
+ }, [open]);
+  
   return (
-    <div className={styles.column} onClick={() => setOpened(true)}>
-      <h2 className={styles.title}>{tools[tooltype]}</h2>
-    </div>  
+    <div>
+      <div 
+        ref={columnRef}
+        className={styles.column} 
+        onClick={() => setOpen(!open)}
+      >
+        <h2 className={styles.title}>{tools[tooltype]}</h2>
+      </div>
+      <div style={{ width: open ? "30vw" : "0" }} />
+    </div>
   )
 }
 

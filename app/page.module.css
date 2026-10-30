@@ -6,7 +6,7 @@
   justify-content: center;
   gap: 1rem;
 
-  background-color: var(--background);
+  background-color: var(--paper-colour);
 }
 
 .title {
@@ -23,15 +23,15 @@
 .startButton {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  color: var(--foreground);
-  background-color: var(--background);
-  border: 2px solid var(--foreground);
+  color: var(--text-primary);
+  background-color: var(--text-secondary);
+  border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .startButton:hover {
-  color: var(--background);
-  background-color: var(--foreground);
+  color: var(--paper-colour);
+  background-color: var(--text-primary);
 }

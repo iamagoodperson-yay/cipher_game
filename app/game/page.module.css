@@ -22,6 +22,10 @@
   gap: 0.5rem;
 }
 
+.topLeftThing h3 {
+  cursor: pointer;
+}
+
 .submitButton {
   color: var(--text-secondary);
   background-color: var(--foreground);

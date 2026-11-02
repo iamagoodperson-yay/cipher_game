@@ -106,9 +106,8 @@ export default function Game() {
       <div className={styles.topLeftThing}>
         <h3 
           onClick={() => setTopLeftOpen(!topLeftOpen)}
-          className={styles.objectiveTitle} 
         >Objective:</h3>
-        <p className={styles.objectiveTitle}>{currGameStage.objective}</p>
+        <p>{currGameStage.objective}</p>
         {topLeftOpen && (
           <div className={styles.objectiveContent}>
             <input 

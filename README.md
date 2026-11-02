@@ -32,7 +32,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 # Additional info
 Made using react + nextjs  
-## Week 2 Review
+## Week 2 Commentary
 I was so washed when doing this project, I am so rusty at web dev 😭  
 Had to search up stuff like 'how to change the colour of a div react' and 'how to convert string to number tsx'   
 But at least my good friends stack overflow and google came to the rescue   

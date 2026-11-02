@@ -31,5 +31,5 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 # Additional info
-Made using react + nextjs
+Made using react + nextjs  
 Erm kind a rush job but eh

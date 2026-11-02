@@ -5,9 +5,9 @@ Made for HackClub Terra (Week 2)
 - Game where you learn about ciphers to/and solve a mystery!
 - Still being actively developed, currently only a demo
 - Tools
-  - Use the age old Ceaser Cipher (Vignère and Rail Fence Cipher (tbc) coming soon) to solve a mystery
+  - Use the age old Ceaser Cipher (Vignère and Rail Fence Cipher (tbc) coming soon) to solve a puzzle (i dont even consider it a mystery (wow clickbait❗))
 - Evidences
-  - Words and stuff that you can move around to solve the mystery
+  - Words and like stuff that you can move around to solve the puzzle
 - Mystery
   - Coming soon
 
@@ -32,4 +32,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 # Additional info
 Made using react + nextjs  
-Erm kind a rush job but eh
+## Week 2 Review
+I was so washed when doing this project, I am so rusty at web dev 😭  
+Had to search up stuff like 'how to change the colour of a div react' and 'how to convert string to number tsx'   
+But at least my good friends stack overflow and google came to the rescue   
+Also lowkey lost motivation midway but managed to pull through and at least do a short puzzle   

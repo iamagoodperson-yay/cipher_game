@@ -5,7 +5,6 @@ import { evidence } from "../scripts/gameHelper";
 import { useEffect } from "react";
 
 export default function Game() {
-  
   useEffect(() => {
     const evidenceRef = document.getElementsByClassName(styles.evidence);
     const cleanups: (() => void)[] = []

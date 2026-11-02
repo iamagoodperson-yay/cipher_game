@@ -1,4 +1,6 @@
 .column {
+  position: relative;
+
   height: 1rem;
   width: 30vw;
   padding: 1.5rem;
@@ -37,8 +39,23 @@
   height: 80vh;
 }
 
+.lock {
+  z-index: 101;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 1rem;
+  width: calc(30vw - 4px);
+  padding: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .title {
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
   font-weight: bold;
   color: var(--text-primary);
 }

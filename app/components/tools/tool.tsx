@@ -43,6 +43,7 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
   ); else return (
     <div 
       className={styles.column}
+      style={{ cursor: tool.locked === 'true' ? 'default' : 'pointer' }}
       onClick={() => {
         if (tool.locked === 'false') {
           setOpen(!open);

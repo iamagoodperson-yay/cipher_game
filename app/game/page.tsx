@@ -95,7 +95,7 @@ export default function Game() {
   const submit = () => {
     setInput("");
     if (input === currGameStage.answer) {
-      alert("Correct!");
+      alert("Correct! That's it for the demo; more stages coming soon!");
     } else {
       alert("Incorrect. Try again.");
     }

@@ -27,14 +27,12 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
     const input = (document.getElementById('input') as HTMLInputElement).value;
     const shift = parseInt((document.getElementById('shift') as HTMLInputElement).value);
     setOutput(encodeDecode(input, shift));
-    console.log(`Encoded: ${output}`); 
   }
 
   function decode() {
     const input = (document.getElementById('input') as HTMLInputElement).value;
     const shift = parseInt((document.getElementById('shift') as HTMLInputElement).value);
     setOutput(encodeDecode(input, -shift));
-    console.log(`Decoded: ${output}`);
   }
 
   function encodeDecode(input: string, shift: number): string {
@@ -85,8 +83,12 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
               value={shift}
               onChange={(e) => setShift(parseInt(e.target.value) || 0)}
             />
-            <h2 className={styles.toolInteractiveHeader}>Output</h2>
-            <p id="output">{output}</p>
+            {output && 
+              <div>
+                <h2 className={styles.toolInteractiveHeader}>Output</h2>
+                <p id="output">{output}</p>
+              </div>
+            }
             <button
               className={styles.codeButton}
               onClick={() => encode()}
@@ -120,3 +122,4 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
   }
 
 export default Tool;
+

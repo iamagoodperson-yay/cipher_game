@@ -2,6 +2,7 @@
 import Game from "./game/page";
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -21,10 +22,6 @@ export default function Home() {
     }
   }, []);
 
-  function startGame() {
-    window.location.href = "../game";
-  }
-
   if (isMobile) {
     return (
       <div className={styles.page}>
@@ -40,9 +37,12 @@ export default function Home() {
         <div className={styles.content}>
           <h1 className={styles.title}>Welcome to Cipher Game</h1>
           <p className={styles.description}>Learn about ciphers and solve a mystery!</p>
-          <button className={styles.startButton} onClick={startGame}>
+          <Link 
+            className={styles.startButton} 
+            href="/game"
+          >
             Start Game
-          </button>
+          </Link>
         </div>
         <div className={styles.gameContainer}>
           <Game />

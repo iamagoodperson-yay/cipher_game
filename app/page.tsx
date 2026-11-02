@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   function startGame() {
-    window.location.href = "/game";
+    window.location.href = "../game";
   }
 
   if (isMobile) {

@@ -13,7 +13,7 @@ Made for HackClub Terra (Week 2)
 
 # How to demo
 ## Test out!
-[Open in browser]()  
+[Open in browser](https://iamagoodperson-yay.github.io/cipher_game/)  
 
 ## Run locally
 First, run the development server:

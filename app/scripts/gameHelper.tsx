@@ -22,24 +22,36 @@ export type evidenceChoice = 1 | 2 | 3;
 
 export const evidence: Record<evidenceChoice, Record<string, string>> = {
   1: {
-    "width": "40vw",
+    "width": "20vw",
     "height": "150px",
-    "left": "30vw",
-    "description": "Evidence 1",
-    "details": "Details about Evidence 1"
+    "description": "Note by designer",
+    "details": "Objectives objectives... \n maybe loock (look + click) at the objective?"
   },
   2: {
-    "width": "40vw",
-    "height": "150px",
-    "left": "30vw",
-    "description": "Evidence 2",
-    "details": "More details about Evidence 2"
+    "width": "30vw",
+    "height": "300px",
+    "description": "List of my favourite songs",
+    "details": "99 Luftballoons"
   },
   3: {
     "width": "30vw",
-    "height": "300px",
-    "left": "35vw",
-    "description": "Evidence 3",
-    "details": "More details about Evidence 3"
+    "height": "150px",
+    "description": "Hmmm i wonder what this means and does",
+    "details": "CZGGJ"
+  },
+};
+
+export type gameStage = 1 | 2;
+
+export const gameStages: Record<gameStage, Record<string, string>> = {
+  1: {
+    "objective": "Find the encrypted message",
+    "input_type": "text",
+    "answer": "HELLO",
+  },
+  2: {
+    "objective": "???",
+    "input_type": "date",
+    "answer": "1873-01-01",
   },
 };

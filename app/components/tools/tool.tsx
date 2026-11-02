@@ -5,9 +5,6 @@ import { useState, useEffect } from 'react';
 
 const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
   const [open, setOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [shift, setShift] = useState(0);
-  const [output, setOutput] = useState('');
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -23,15 +20,53 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
     };
   }, []);
 
+  const tool = tools[tooltype];
+  if (open) return (
+    <div>
+      <div
+        id={`tool-${tooltype}`}
+        className={`${styles.column} ${styles.opened}`}
+      >
+        <button className={styles.closeButton} onClick={() => setOpen(false)}>Close</button>
+        <h1 className={styles.title}>{tool.title}</h1>
+
+        <div className={styles.toolContent}>
+          <p className={styles.explanation}>{tool.description}</p>
+
+          <CeasarCipher />
+        </div>
+
+      </div>
+
+      <div style={{ width: "30vw"}} />
+    </div>
+  ); else return (
+    <div 
+      className={styles.column}
+      onClick={() => {
+        if (tool.locked === 'false') {
+          setOpen(!open);
+        }
+      }}
+    >
+      {tool.locked === 'true' && 
+        <h1 className={styles.lock}>🔒</h1>
+      }
+      <h1 className={styles.title}>{tool.title}</h1>
+    </div>
+  )
+}
+
+const CeasarCipher = () => {
+  const [input, setInput] = useState('');
+  const [shift, setShift] = useState(0);
+  const [output, setOutput] = useState('');
+
   function encode() {
-    const input = (document.getElementById('input') as HTMLInputElement).value;
-    const shift = parseInt((document.getElementById('shift') as HTMLInputElement).value);
     setOutput(encodeDecode(input, shift));
   }
 
   function decode() {
-    const input = (document.getElementById('input') as HTMLInputElement).value;
-    const shift = parseInt((document.getElementById('shift') as HTMLInputElement).value);
     setOutput(encodeDecode(input, -shift));
   }
 
@@ -56,70 +91,38 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
     }
     return output;
   }
-
-  const tool = tools[tooltype];
-  if (open) return (
-    <div>
-      <div
-        id={`tool-${tooltype}`}
-        className={`${styles.column} ${styles.opened}`}
-      >
-        <button className={styles.closeButton} onClick={() => setOpen(false)}>Close</button>
-        <h1 className={styles.title}>{tool.title}</h1>
-        <div className={styles.toolContent}>
-          <p className={styles.explanation}>{tool.description}</p>
-          <div className={styles.toolInteractive}>
-            <h2 className={styles.toolInteractiveHeader}>Encode/decode</h2>
-            <input
-              id="input"
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <h2 className={styles.toolInteractiveHeader}>Shift</h2>
-            <input
-              id="shift"
-              type="number"
-              value={shift}
-              onChange={(e) => setShift(parseInt(e.target.value) || 0)}
-            />
-            {output && 
-              <div>
-                <h2 className={styles.toolInteractiveHeader}>Output</h2>
-                <p id="output">{output}</p>
-              </div>
-            }
-            <button
-              className={styles.codeButton}
-              onClick={() => encode()}
-            >Encode</button>
-            <button
-              className={styles.codeButton}
-              onClick={() => decode()}
-            >Decode</button>
-          </div>
+  return(
+    <div className={styles.toolInteractive}>
+      <h2 className={styles.toolInteractiveHeader}>Encode/decode</h2>
+      <input
+        id="input"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <h2 className={styles.toolInteractiveHeader}>Shift</h2>
+      <input
+        id="shift"
+        type="number"
+        value={shift}
+        onChange={(e) => setShift(parseInt(e.target.value) || 0)}
+      />
+      {output && 
+        <div>
+          <h2 className={styles.toolInteractiveHeader}>Output</h2>
+          <p id="output">{output}</p>
         </div>
-      </div>
-      <div style={{ width: "30vw"}} />
+      }
+      <button
+        className={styles.codeButton}
+        onClick={() => encode()}
+      >Encode</button>
+      <button
+        className={styles.codeButton}
+        onClick={() => decode()}
+      >Decode</button>
     </div>
-  ); else return (
-      <div 
-        className={styles.column}
-        onClick={() => {
-          if (tool.locked === 'false') {
-            setOpen(!open);
-          }
-        }}
-      >
-        {tool.locked === 'true' ? (
-          <h1 className={styles.lock}>🔒</h1>
-        ): (
-          <div/>
-        )}
-        <h1 className={styles.title}>{tool.title}</h1>
-      </div>
-    )
-  }
+  )
+}
 
 export default Tool;
-

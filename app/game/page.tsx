@@ -1,10 +1,15 @@
 'use client';
 import styles from "./page.module.css";
 import Tool from "../components/tools/tool";
-import { evidence } from "../scripts/gameHelper";
-import { useEffect } from "react";
+import { evidence, gameStage, gameStages } from "../scripts/gameHelper";
+import { useState, useEffect } from "react";
 
 export default function Game() {
+  const [topLeftOpen, setTopLeftOpen] = useState(false);
+  const [evidencePos, setEvidencePos] = useState([] as { top: string; left: string }[]);
+  const [currentStage] = useState<gameStage>(1);
+  const currGameStage = gameStages[currentStage];
+
   useEffect(() => {
     const evidenceRef = document.getElementsByClassName(styles.evidence);
     const cleanups: (() => void)[] = []
@@ -75,22 +80,62 @@ export default function Game() {
       cleanups.forEach(cleanup => cleanup());
     };
 
+  }, [evidencePos]);
+
+  useEffect(() => {
+    const randomPositions = Object.entries(evidence).map(([_, value]) => ({
+      top: `${Math.random() * 50}vh`,
+      left: `${Math.random() * (100 - parseInt(value.width))}vw`,
+    }));
+
+    setEvidencePos(randomPositions);
   }, []);
+
+  const [input, setInput] = useState<string>("");
+  const submit = () => {
+    setInput("");
+    if (input === currGameStage.answer) {
+      alert("Correct!");
+    } else {
+      alert("Incorrect. Try again.");
+    }
+  }
 
   return (
     <div className={styles.page}>
+      <div className={styles.topLeftThing}>
+        <h3 
+          onClick={() => setTopLeftOpen(!topLeftOpen)}
+          className={styles.objectiveTitle} 
+        >Objective:</h3>
+        <p className={styles.objectiveTitle}>{currGameStage.objective}</p>
+        {topLeftOpen && (
+          <div className={styles.objectiveContent}>
+            <input 
+              type={currGameStage.input_type}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button
+              className={styles.submitButton}
+              onClick={() => submit()}
+            >Submit</button>
+          </div>
+        )}
+      </div>
+
       <div className={styles.gameContainer}>
-        {Object.entries(evidence).map(([key, value]) => (
+        {evidencePos.length > 0 && Object.entries(evidence).map(([key, value], index) => (
           <div
             key={key}
             className={styles.evidence}
             style={{
               zIndex: parseInt(key) + 1,
-              width: value.width,
-              height: value.height,
-              top: `${(parseInt(key) - 1) * 20}%`,
-              left: value.left
-            }}
+              width: value.width, // vw
+              height: value.height, // px
+              top: evidencePos[index].top,
+              left: evidencePos[index].left,
+            }} 
           >
             <h2>{value.description}</h2>
             <p>{value.details}</p>

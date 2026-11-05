@@ -29,7 +29,7 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
           className={styles.opened}
         >
           <button className={styles.closeButton} onClick={() => setOpen(false)}>Close</button>
-          <h1 className={styles.title}>{tool.title}</h1>
+          <h1>{tool.title}</h1>
           <CeasarCipher tool={tool} />
         </div>
       </div>
@@ -108,7 +108,10 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
       </div>
 
       <div className={styles.toolContent}>
-        <p className={styles.explanation}>{tool.description}</p>
+        <div className={styles.explanation}>
+          <h2>{tool.subtitle}</h2>
+          <p>{tool.description}</p>
+        </div>
 
         <div className={styles.toolInteractive}>
           <h2>Encode/decode</h2>

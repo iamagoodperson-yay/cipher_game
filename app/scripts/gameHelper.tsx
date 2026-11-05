@@ -3,7 +3,8 @@ export type toolChoice = 1 | 2 | 3;
 export const tools: Record<toolChoice, Record<string, string>> = {
   1: {
     'title': "Caesar Cipher",
-    'description': "The OG cipher: A simple substitution cipher where each letter in the plaintext is shifted a certain number of places down the alphabet.",
+    'subtitle': "The OG cipher",
+    'description': "A simple substitution cipher where each letter in the plaintext is shifted a certain number of places down the alphabet. For example, with a shift of 1, A would be replaced by B, B would become C, and so on. You can try this out and see how it works in the table above!",
     'locked': 'false'
   },
   2: {

@@ -98,6 +98,11 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
               {String.fromCharCode(65 + i)}
             </p>
           ))}
+        </div>
+        <div>
+          <h2 className={styles.arrow}>↓</h2>
+        </div>
+        <div className={styles.caesarShift}>
           <h2>Ciphertext</h2>
           {Array.from({ length: 26 }, (_, i) => (
             <p key={i}>
@@ -125,7 +130,7 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
           <input
             id="shift"
             type="number"
-            value={shift}
+            value={shift || 0}
             onChange={(e) => setShift(parseInt(e.target.value))}
           />
           {output && 

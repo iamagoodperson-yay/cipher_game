@@ -1,14 +1,47 @@
 'use client';
 import styles from "./page.module.css";
 import Tool from "../components/tools/tool";
+import Dialog from "../components/dialog/dialog";
 import { evidence, gameStage, gameStages } from "../scripts/gameHelper";
 import { useState, useEffect } from "react";
 
 export default function Game() {
   const [topLeftOpen, setTopLeftOpen] = useState(false);
   const [evidencePos, setEvidencePos] = useState([] as { top: string; left: string }[]);
-  const [currentStage] = useState<gameStage>(1);
+  const [currentStage, setCurrentStage] = useState<gameStage>(1);
   const currGameStage = gameStages[currentStage];
+  
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState<string>("");
+  const [dialogContent, setDialogContent] = useState<React.ReactNode>(<></>);
+  const [dialogClose, setDialogClose] = useState<(() => void)>(() => {});
+
+  const handleDialog = (dialogTitle: string, children: React.ReactNode, dialogClose?: () => void) => {
+    setDialogTitle(dialogTitle);
+    setDialogContent(children);
+    setDialogClose(() => () => {
+      setDialogOpen(false);
+      dialogClose && dialogClose();
+    });
+    setDialogOpen(true);
+  };
+
+  const [input, setInput] = useState<string>("");
+  const submit = () => {
+    if (input === currGameStage.answer) {
+      handleDialog(
+        'You got it!',
+        <p>You completed this stage! You can now move on to the next stage.</p>,
+        () => setCurrentStage((prevStage) => (prevStage == 1 ? 2 : 1))
+      );
+    } else {
+      handleDialog(
+        'Incorrect',
+        <p>Try again!</p>,
+      );
+    }
+    setInput("");
+  }
 
   useEffect(() => {
     const evidenceRef = document.getElementsByClassName(styles.evidence);
@@ -83,26 +116,23 @@ export default function Game() {
   }, [evidencePos]);
 
   useEffect(() => {
-    const randomPositions = Object.entries(evidence).map(([_, value]) => ({
+    const randomPositions = Object.entries(evidence[currentStage]).map(([_, value]) => ({
       top: `${Math.random() * 50}vh`,
       left: `${Math.random() * (100 - parseInt(value.width))}vw`,
     }));
 
     setEvidencePos(randomPositions);
-  }, []);
-
-  const [input, setInput] = useState<string>("");
-  const submit = () => {
-    setInput("");
-    if (input === currGameStage.answer) {
-      alert("Correct! That's it for the demo; more stages coming soon!");
-    } else {
-      alert("Incorrect. Try again.");
-    }
-  }
+  }, [evidence[currentStage]]);
 
   return (
     <div className={styles.page}>
+      <Dialog
+        title={dialogTitle}
+        children={dialogContent}
+        opened={dialogOpen}
+        onClose={dialogClose}
+      />
+
       <div className={styles.topLeftThing}>
         <h3 
           onClick={() => setTopLeftOpen(!topLeftOpen)}
@@ -124,7 +154,7 @@ export default function Game() {
       </div>
 
       <div className={styles.gameContainer}>
-        {evidencePos.length > 0 && Object.entries(evidence).map(([key, value], index) => (
+        {evidencePos.length > 0 && Object.entries(evidence[currentStage]).map(([key, value], index) => (
           <div
             key={key}
             className={styles.evidence}

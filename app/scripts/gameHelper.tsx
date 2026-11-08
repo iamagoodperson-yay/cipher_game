@@ -19,14 +19,12 @@ export const tools: Record<toolChoice, Record<string, string>> = {
   },
 };
 
-export type evidenceChoice = 1 | 2 | 3;
-
-export const evidence: Record<evidenceChoice, Record<string, string>> = {
+const stage1evidence: Record<number, Record<string, string>> = {
   1: {
     "width": "20vw",
     "height": "150px",
     "description": "Note by designer",
-    "details": "Objectives objectives... \n maybe loock (look + click) at the objective?"
+    "details": "Objectives objectives...  maybe loock (look + click) at the objective?"
   },
   2: {
     "width": "30vw",
@@ -40,6 +38,20 @@ export const evidence: Record<evidenceChoice, Record<string, string>> = {
     "description": "Hmmm i wonder what this means and does",
     "details": "CZGGJ"
   },
+};
+
+const stage2evidence: Record<number, Record<string, string>> = {
+  1: {
+    "width": "20vw",
+    "height": "150px",
+    "description": "Placeholder",  
+    "details": "Placeholder"
+  },
+};
+
+export const evidence: Record<gameStage, Record<number, Record<string, string>>> = {
+  1: stage1evidence,
+  2: stage2evidence,
 };
 
 export type gameStage = 1 | 2;

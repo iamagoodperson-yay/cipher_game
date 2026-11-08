@@ -3,7 +3,7 @@ import styles from './page.module.css';
 import { toolChoice, tools } from '../../scripts/gameHelper';
 import { useState, useEffect } from 'react';
 
-const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
+const Tool = ({ tooltype, locked }: { tooltype: toolChoice, locked: boolean }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -30,12 +30,12 @@ const Tool = ({ tooltype }: { tooltype: toolChoice }) => {
         >
           <button className={styles.closeButton} onClick={() => setOpen(false)}>Close</button>
           <h1>{tool.title}</h1>
-          <CeasarCipher tool={tool} />
+          {tooltype == 1 && <CeasarCipher tool={tool} />}
         </div>
       </div>
       <div style={{ width: "30vw"}} />
     </>
-  ); else if (tool.locked === 'true') return (
+  ); else if (locked) return (
     <div className={`${styles.container} ${styles.disabled}`}>
       <h1 className={styles.lock}>🔒</h1>
       <div 

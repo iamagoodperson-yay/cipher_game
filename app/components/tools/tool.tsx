@@ -31,6 +31,7 @@ const Tool = ({ tooltype, locked }: { tooltype: toolChoice, locked: boolean }) =
           <button className={styles.closeButton} onClick={() => setOpen(false)}>Close</button>
           <h1>{tool.title}</h1>
           {tooltype == 1 && <CeasarCipher tool={tool} />}
+          {tooltype == 2 && <VigenereCipher tool={tool} />}
         </div>
       </div>
       <div style={{ width: "30vw"}} />
@@ -119,6 +120,7 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
         </div>
 
         <div className={styles.toolInteractive}>
+
           <h2>Encode/decode</h2>
           <input
             id="input"
@@ -126,6 +128,7 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
+
           <h2>Shift</h2>
           <input
             id="shift"
@@ -133,20 +136,24 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
             value={shift || 0}
             onChange={(e) => setShift(parseInt(e.target.value))}
           />
+
           {output && 
             <div>
               <h2>Output</h2>
               <p id="output">{output}</p>
             </div>
           }
-          <button
-            className={styles.codeButton}
-            onClick={() => encode()}
-          >Encode</button>
-          <button
-            className={styles.codeButton}
-            onClick={() => decode()}
-          >Decode</button>
+          
+          <div className={styles.row}>
+            <button
+              className={styles.codeButton}
+              onClick={() => encode()}
+            >Encode</button>
+            <button
+              className={styles.codeButton}
+              onClick={() => decode()}
+            >Decode</button>
+          </div>
         </div>
       </div>
     </>
@@ -154,3 +161,64 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
 }
 
 export default Tool;
+
+const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
+  const [input, setInput] = useState('');
+  const [key, setKey] = useState('');
+  const [output, setOutput] = useState('');
+
+  function encode() {
+    
+  }
+
+  function decode() {
+
+  }
+
+  return (
+    <>
+      <div className={styles.toolContent}>
+        <div className={styles.explanation}>
+          <h2>{tool.subtitle}</h2>
+          <p>{tool.description}</p>
+        </div>
+
+        <div className={styles.toolInteractive}>
+          <h2>Plaintext / Ciphertext</h2>
+          <input
+            id="input"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+
+          <h2>Key</h2>
+          <input
+            id="key"
+            type="text"
+            value={key}
+            onChange={(e) => setKey(e.target.value)}
+          />
+
+          {output && 
+            <div>
+              <h2>Output</h2>
+              <p id="output">{output}</p>
+            </div>
+          }
+
+          <div className={styles.row}>
+            <button
+              className={styles.codeButton}
+              onClick={() => encode()}
+            >Encode</button>
+            <button
+              className={styles.codeButton}
+              onClick={() => decode()}
+            >Decode</button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

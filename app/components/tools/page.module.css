@@ -116,9 +116,6 @@
 }
 
 .toolContent {
-  position: block;
-  z-index: 100;
-
   width: 100%;
   padding: 1rem;
 
@@ -149,9 +146,18 @@
   color: var(--text-primary);
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  gap: 1rem;
+}
+
 .codeButton {
   color: var(--text-secondary);
   background-color: var(--foreground);
+  width: 100%;
 
   border: none;
   border-radius: 4px;

@@ -8,7 +8,8 @@ export const tools: Record<toolChoice, Record<string, string>> = {
   },
   2: {
     'title': "Vigenère Cipher",
-    'description': "More advanced: A method of encrypting alphabetic text by using a simple form of polyalphabetic substitution.",
+    'subtitle': "Caesar with a key phrase",
+    'description': "A method of encrypting alphabetic text by using a simple form of 'Caesar cipher-esque' shifting. A keyword is used to determine the shift for each letter in the plaintext. For example, if the keyword is 'KEY', the first letter of the plaintext would be shifted by the position of 'K' in the alphabet, the second letter by 'E', and so on. This makes it more secure than a simple Caesar cipher. You can try this out and see how it works in the table above!",
   },
   3: {
     'title': "Rail Fence Cipher",

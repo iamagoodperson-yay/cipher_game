@@ -45,10 +45,14 @@ export default function Game() {
 
   useEffect(() => {
     const evidenceRef = document.getElementsByClassName(styles.evidence);
+    const draggable = document.getElementsByClassName(styles.draggable);
+    console.log("Evidence:", evidenceRef.length);
+    console.log("Draggable:", draggable.length);
     const cleanups: (() => void)[] = []
 
-    for (const evidence of evidenceRef) {
-      const elmnt = evidence as HTMLElement;
+    for (let i = 0; i < Math.min(evidenceRef.length, draggable.length); i++) {
+      const evid = evidenceRef[i] as HTMLElement;
+      const drag = draggable[i] as HTMLElement;
 
       function dragMouseDown(e: MouseEvent) {
         e.preventDefault();
@@ -58,7 +62,7 @@ export default function Game() {
         let startX: number;
         let startY: number;
         
-        const rect = elmnt.getBoundingClientRect();
+        const rect = evid.getBoundingClientRect();
         
         startLeft = rect.left;
         startTop = rect.top;
@@ -68,12 +72,12 @@ export default function Game() {
         
         const totalEvidence = evidenceRef.length + 1;
 
-        elmnt.style.cursor = "grabbing";
+        drag.style.cursor = "grabbing";
 
         for (const otherEvidence of evidenceRef) {
           const other = otherEvidence as HTMLElement;
 
-          if (other === elmnt) {
+          if (other === evid) {
             other.style.zIndex = totalEvidence.toString();
           } else {
             const currentZIndex = parseInt(other.style.zIndex || "1");
@@ -87,12 +91,12 @@ export default function Game() {
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
           
-          elmnt.style.left = `${startLeft + dx}px`;
-          elmnt.style.top = `${startTop + dy}px`;
+          evid.style.left = `${startLeft + dx}px`;
+          evid.style.top = `${startTop + dy}px`;
         }
           
         function closeDragElement() {
-          elmnt.style.cursor = "grab";
+          drag.style.cursor = "grab";
 
           document.removeEventListener("mouseup", closeDragElement);
           document.removeEventListener("mousemove", elementDrag);
@@ -102,10 +106,10 @@ export default function Game() {
         document.addEventListener("mouseup", closeDragElement);
       }
         
-      elmnt.addEventListener("mousedown", dragMouseDown);
+      drag.addEventListener("mousedown", dragMouseDown);
       
       cleanups.push(() => {
-        elmnt.removeEventListener("mousedown", dragMouseDown);
+        drag.removeEventListener("mousedown", dragMouseDown);
       });
     }
 
@@ -166,7 +170,7 @@ export default function Game() {
               left: evidencePos[index].left,
             }} 
           >
-            <h2>{value.description}</h2>
+            <h2 className={styles.draggable}>{value.description}</h2>
             <p>{value.details}</p>
           </div>
         ))}

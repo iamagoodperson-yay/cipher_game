@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 export default function Game() {
   const [topLeftOpen, setTopLeftOpen] = useState(false);
   const [evidencePos, setEvidencePos] = useState([] as { top: string; left: string }[]);
-  const [currentStage, setCurrentStage] = useState<gameStage>(3); // change back to 1 for prod
+  const [currentStage, setCurrentStage] = useState<gameStage>(1); // change back to 1 for prod
   const currGameStage = gameStages[currentStage];
   
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -142,7 +142,7 @@ export default function Game() {
 
   useEffect(() => {
     const randomPositions = Object.entries(evidence[currentStage]).map(([_, value]) => ({
-      top: `${Math.random() * 50}vh`,
+      top: `${Math.random() * 80}vh`,
       left: `${Math.random() * (100 - parseInt(value.width))}vw`,
     }));
 

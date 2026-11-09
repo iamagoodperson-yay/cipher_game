@@ -228,3 +228,10 @@
 .vigenereText p {
   width: 1.2rem;
 }
+
+.railRadio {
+  display: flex;
+  flex-direction: row;
+
+  gap: 1rem;
+}

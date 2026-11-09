@@ -63,7 +63,7 @@ export default function Game() {
             'You got it!',
             <>
               <p>A shipping mistake caused The Project to be sent to Tirol Industries Machigawa City.</p>
-              <p>What happened next?</p>
+              <p>You contact Tirol Industries to find out more...</p>
             </>,
             () => {
               setCurrentStage(4);

@@ -32,6 +32,7 @@ const Tool = ({ tooltype, locked }: { tooltype: toolChoice, locked: boolean }) =
           <h1>{tool.title}</h1>
           {tooltype == 1 && <CeasarCipher tool={tool} />}
           {tooltype == 2 && <VigenereCipher tool={tool} />}
+          {tooltype == 3 && <RailFenceCipher tool={tool} />}
         </div>
       </div>
       <div style={{ width: "30vw"}} />
@@ -120,7 +121,6 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
         </div>
 
         <div className={styles.toolInteractive}>
-
           <h2>Encode/decode</h2>
           <input
             id="input"
@@ -137,13 +137,6 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
             onChange={(e) => setShift(parseInt(e.target.value))}
           />
 
-          {output && 
-            <div>
-              <h2>Output</h2>
-              <p id="output">{output}</p>
-            </div>
-          }
-
           <div className={styles.row}>
             <button
               className={styles.codeButton}
@@ -154,6 +147,13 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
               onClick={() => decode()}
             >Decode</button>
           </div>
+
+          {output && 
+            <div>
+              <h2>Output</h2>
+              <p id="output">{output}</p>
+            </div>
+          }
         </div>
       </div>
     </>
@@ -164,15 +164,15 @@ export default Tool;
 
 const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
   const [input, setInput] = useState('');
-  const [sanitizedInput, setSanitizedInput] = useState('');
+  const [sanitisedInput, setSanitisedInput] = useState('');
   const [key, setKey] = useState('');
   const [repeatingKey, setRepeatingKey] = useState('');
   const [output, setOutput] = useState('');
-  const [sanitizedOutput, setSanitizedOutput] = useState('');
+  const [sanitisedOutput, setSanitisedOutput] = useState('');
 
   function encode() {
-    var output = '';
-    var skipped = 0;
+    let output = '';
+    let skipped = 0;
     input.split('').forEach((char, index) => {
       if (char.match(/[A-Z]/)) {
         const charCode = char.charCodeAt(0) - 65;
@@ -193,8 +193,8 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
   }
 
   function decode() {
-    var output = '';
-    var skipped = 0;
+    let output = '';
+    let skipped = 0;
     input.split('').forEach((char, index) => {
       if (char.match(/[A-Z]/)) {
         const charCode = char.charCodeAt(0) - 65;
@@ -215,21 +215,21 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
   }
 
   useEffect(() => {
-    const sanitizedInput = input.replace(/[^a-zA-Z]/g, '').toUpperCase();
-    setSanitizedInput(sanitizedInput);
+    const sanitisedInput = input.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    setSanitisedInput(sanitisedInput);
 
     const sanitizedKey = key.replace(/[^a-zA-Z]/g, '').toUpperCase();
     if (sanitizedKey) {
-      const repeating = sanitizedKey.repeat(Math.ceil(sanitizedInput.length / sanitizedKey.length)).slice(0, sanitizedInput.length);
+      const repeating = sanitizedKey.repeat(Math.ceil(sanitisedInput.length / sanitizedKey.length)).slice(0, sanitisedInput.length);
       setRepeatingKey(repeating);
-    } else setRepeatingKey(' '.repeat(sanitizedInput.length));
+    } else setRepeatingKey(' '.repeat(sanitisedInput.length));
 
-    setSanitizedOutput('');
+    setSanitisedOutput('');
   }, [input, key]);
 
   useEffect(() => {
-    const sanitizedOutput = output.replace(/[^a-zA-Z]/g, '').toUpperCase();
-    setSanitizedOutput(sanitizedOutput);
+    const sanitisedOutput = output.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    setSanitisedOutput(sanitisedOutput);
   }, [output]);
 
   return (
@@ -237,7 +237,7 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
       <div className={styles.caesarShiftContainer}>
         <div className={styles.vigenereText}>
           <h2>Input</h2>
-          {Object.entries(sanitizedInput).map(([_, value], i) => (
+          {Object.entries(sanitisedInput).map(([_, value], i) => (
             <p key={i}>
               {value}
             </p>
@@ -253,7 +253,7 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
         </div>
         <div className={styles.vigenereText}>
           <h2>Output</h2>
-          {Object.entries(sanitizedOutput).map(([_, value], i) => (
+          {Object.entries(sanitisedOutput).map(([_, value], i) => (
             <p key={i}>
               {value}
             </p>
@@ -283,6 +283,159 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
             value={key}
             onChange={(e) => setKey(e.target.value)}
           />
+
+          <div className={styles.row}>
+            <button
+              className={styles.codeButton}
+              onClick={() => encode()}
+            >Encode</button>
+            <button
+              className={styles.codeButton}
+              onClick={() => decode()}
+            >Decode</button>
+          </div>
+
+          {output && 
+            <div>
+              <h2>Output</h2>
+              <p id="output">{output}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </>
+  );
+}
+
+const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
+  const [input, setInput] = useState('');
+  const [levels, setLevels] = useState(3);
+  const [startingPosition, setStartingPosition] = useState<'top' | 'bottom'>('top');
+  const [output, setOutput] = useState('');
+
+  const encode = () => {
+    if (levels < 2) {
+      setOutput(input);
+      return;
+    }
+    const rail: string[] = Array.from({ length: levels }, () => '');
+    const cycleLength = levels * 2 - 2;
+    for (let i = 0; i < input.length; i++) {
+      const cycle = i % cycleLength;
+      let level;
+      if (startingPosition === 'top') {
+        level = cycle < levels ? cycle : cycleLength - cycle;
+      } else {
+        level = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
+      }
+      rail[level] += input[i];
+    }
+    const output = rail.join('');
+    setOutput(output);
+  }
+
+  const decode = () => {
+    if (levels < 2) {
+      setOutput(input);
+      return;
+    }
+    const rail: string[] = Array.from({ length: levels }, () => '');
+    const cycleLength = levels * 2 - 2;
+    const counts = Array.from({ length: levels }, (_, level) => {
+      let count = 0;
+
+      for (let i = 0; i < input.length; i++) {
+        const cycle = i % cycleLength;
+        let currentLevel;
+        if (startingPosition === 'top') {
+           currentLevel = cycle < levels ? cycle : cycleLength - cycle;
+        } else {
+           currentLevel = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
+        }
+        if (currentLevel === level) count++;
+      }
+
+      return count;
+    });
+
+    let index = 0;
+    for (let level = 0; level < levels; level++) {
+      const count = counts[level];
+      rail[level] = input.slice(index, index + count);
+      index += count;
+    }
+
+    let output = '';
+
+    for (let i = 0; i < input.length; i++) {
+      const cycle = i % cycleLength;
+      let level;
+      if (startingPosition === 'top') {
+        level = cycle < levels ? cycle : cycleLength - cycle;
+      } else {
+        level = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
+      }
+      output += rail[level][0];
+      rail[level] = rail[level].slice(1);
+    }
+    setOutput(output);
+  }
+
+  return (
+    <>
+      <div className={styles.caesarShiftContainer}>
+        <div className={styles.caesarShift}>
+          <h2>Plaintext</h2>
+          {Array.from({ length: 26 }, (_, i) => (
+            <p key={i}>
+              {String.fromCharCode(65 + i)}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.toolContent}>
+        <div className={styles.explanation}>
+          <h2>{tool.subtitle}</h2>
+          <p>{tool.description}</p>
+        </div>
+
+        <div className={styles.toolInteractive}>
+          <h2>Encode/decode</h2>
+          <input
+            id="input"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+
+          <h2>Levels/Rows</h2>
+          <input
+            id="shift"
+            type="number"
+            value={levels || 0}
+            onChange={(e) => setLevels(parseInt(e.target.value))}
+          />
+
+          <h2>Starting position</h2>
+          <div className={styles.railRadio}>
+            <input
+              type="radio"
+              id="top"
+              value="top"
+              checked={startingPosition === 'top'}
+              onChange={() => setStartingPosition('top')}
+            /><label htmlFor="top">Top</label>
+          </div>
+          <div className={styles.railRadio}>
+            <input
+              type="radio"
+              id="bottom"
+              value="bottom"
+              checked={startingPosition === 'bottom'}
+              onChange={() => setStartingPosition('bottom')}
+            /><label htmlFor="bottom">Bottom</label>
+          </div>
 
           <div className={styles.row}>
             <button

@@ -179,6 +179,6 @@ export const gameStages: Record<gameStage, Record<string, string>> = {
     "answer": "???",
     "1-locked": "false",
     "2-locked": "false",
-    "3-locked": "true",
+    "3-locked": "false",
   }
 };

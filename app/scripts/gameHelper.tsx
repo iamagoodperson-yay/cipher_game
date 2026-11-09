@@ -72,7 +72,7 @@ const stage2evidence: Record<number, Record<string, string>> = {
   7: {
     "width": "20vw",
     "description": "1973-09-05",  
-    "details": "<p>Dear HQ,</p><p>Vjg Rtqlgev jcu dggp eqorngvgf cpf ycu <strong>ujkrrgf qwv</strong> vjg fca chvgt kv ycu hkpkujgf. Kv ujqwnf pqv jcxg vcmgp oqtg vjcp c hgy fcau. Uqogqpg owuv jcxg kpvgtegrvgf kv. K yknn kpxguvkicvg vjku hwtvjgt cpf mggr aqw wrfcvgf</p><p>Best regards, Sparky</p>"
+    "details": "<p>Dear HQ,</p><p>Vjg Rtqlgev jcu dggp eqorngvgf cpf ycu <strong>ujkrrgf qwv</strong> vjg fca chvgt kv ycu hkpkujgf. Kv ujqwnf pqv jcxg vcmgp oqtg vjcp c hgy fcau. Uqogqpg owuv jcxg kpvgtegrvgf kv. K yknn kpxguvkicvg vjku hwtvjgt cpf mggr aqw wrfcvgf.</p><p>Best regards, Sparky</p>"
   }, // The Project has been completed and was *shipped out* the day after it was finished. It should not have taken more than a few days. Someone must have intercepted it. I will investigate this further and keep you updated.
 };
 
@@ -132,9 +132,9 @@ const stage4evidence: Record<number, Record<string, string>> = {
     "details": "<p>1973-07-06 13:05</p><p>Package SB-8614 opened.</p><br/><p>1973-07-06 13:10</p><p>Package SB-8914 placed in Storage Bay 36.</p>`<p>Status: SEALED</p><p>Contents: UNINSPECTED</p>"
   },
   2: {
-    "width": "40vw",
+    "width": "35vw",
     "description": "Note recovered from Storage Bay 36",
-    "details": "<p>S1TERC8IEOITTABUQOOENETQB94SHRAPOETB64SHDCYDVREITBY6EASHICMRMSDOOSNITH8IELJS1TEIEDO3CESPIDTDO</p>"
+    "details": "<p>S1SEARC·ED·B3ESQ·PI·NS·TQB94I·H·ELPOETIDVRE·TT·A·6BCUEH·SCMRMSDD·O·EDI·OH8·TR·J·ITIOY·A·IOOEOTNT·</p>"
   },
   3: {
     "width": "25vw",

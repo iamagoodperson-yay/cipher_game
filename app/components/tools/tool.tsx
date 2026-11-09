@@ -331,7 +331,7 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
       } else {
         level = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
       }
-      rail[level] += input[i];
+      rail[level] += input[i].replace(' ', '·');;
       for (let j = 0; j < levels; j++) {
         if (j === level) {
           displayRail[j] += input[i].replace(' ', '·');
@@ -400,7 +400,7 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
     <>
       <div className={styles.caesarShiftContainer}>
         {Array.from({ length: levels }, (_, i) => (
-          <div key={i} className={styles.caesarShift}>
+          <div key={i} className={styles.vigenereText}>
             <h2>Row {i + 1}</h2>
             {railCipher[i] && railCipher[i].split('').map((char, j) => (
               <p key={j}>

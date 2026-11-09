@@ -175,7 +175,10 @@
   justify-content: center;
 
   width: 100%;
+  max-height: 30vh;
   padding-top: 5vh;
+
+  overflow-x: auto;
 }
 
 .caesarShift {

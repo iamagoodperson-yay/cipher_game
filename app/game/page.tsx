@@ -12,6 +12,7 @@ export default function Game() {
   const [currentStage, setCurrentStage] = useState<gameStage>(1);
   const currGameStage = gameStages[currentStage];
   const [stageDialogShown, setStageDialogShown] = useState(false);
+  const [gameEnd, setGameEnd] = useState(false);
   const [loaded, setLoaded] = useState(false);
   
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -84,18 +85,7 @@ export default function Game() {
             () => {
               setTopLeftOpen(false);
               setStageDialogShown(false);
-              handleDialog(
-                'Thanks for playing!',
-                <>
-                  <p>Hope you enjoyed playing!</p>
-                  <p>This will now redirect you to the home screen.</p>
-                </>,
-                () => {
-                  setCurrentStage(1);
-                  setTopLeftOpen(false);
-                  setStageDialogShown(false);
-                }
-              );
+              setGameEnd(true);
             }
           );
           break;
@@ -142,7 +132,7 @@ export default function Game() {
       case 2:
         handleDialog(
           'Message from Cipher Master',
-          <p>I found these letter in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.</p>,
+          <p>I found these letters in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.</p>,
         );
         break;
       case 3:
@@ -244,6 +234,21 @@ export default function Game() {
 
     setEvidencePos(randomPositions);
   }, [evidence[currentStage]]);
+
+  useEffect(() => {
+    if (gameEnd) {
+      handleDialog(
+        'Thanks for playing!',
+        <>
+          <p>Hope you enjoyed playing!</p>
+          <p>This will now reset the game and redirect you to the home screen.</p>
+        </>,
+        () => {
+          window.location.href = "/";
+        }
+      );
+    }
+  }, [gameEnd]);
 
   return (
     <div className={styles.page}>

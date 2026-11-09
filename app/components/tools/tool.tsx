@@ -309,16 +309,19 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
 
 const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
   const [input, setInput] = useState('');
+  const [railCipher, setRailCipher] = useState<string[]>([]);
   const [levels, setLevels] = useState(3);
   const [startingPosition, setStartingPosition] = useState<'top' | 'bottom'>('top');
   const [output, setOutput] = useState('');
 
   const encode = () => {
     if (levels < 2) {
+      setRailCipher([]);
       setOutput(input);
       return;
     }
     const rail: string[] = Array.from({ length: levels }, () => '');
+    const displayRail: string[] = Array.from({ length: levels }, () => '');
     const cycleLength = levels * 2 - 2;
     for (let i = 0; i < input.length; i++) {
       const cycle = i % cycleLength;
@@ -329,8 +332,16 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
         level = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
       }
       rail[level] += input[i];
+      for (let j = 0; j < levels; j++) {
+        if (j === level) {
+          displayRail[j] += input[i].replace(' ', '·');
+        } else {
+          displayRail[j] += ' ';
+        }
+      }
     }
     const output = rail.join('');
+    setRailCipher(displayRail);
     setOutput(output);
   }
 
@@ -340,6 +351,7 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
       return;
     }
     const rail: string[] = Array.from({ length: levels }, () => '');
+    const displayRail: string[] = Array.from({ length: levels }, () => '');
     const cycleLength = levels * 2 - 2;
     const counts = Array.from({ length: levels }, (_, level) => {
       let count = 0;
@@ -369,29 +381,34 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
 
     for (let i = 0; i < input.length; i++) {
       const cycle = i % cycleLength;
-      let level;
-      if (startingPosition === 'top') {
-        level = cycle < levels ? cycle : cycleLength - cycle;
-      } else {
-        level = cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
+      const level = startingPosition === 'top'
+        ? cycle < levels ? cycle : cycleLength - cycle
+        : cycle < levels ? levels - 1 - cycle : levels - 1 - (cycleLength - cycle);
+
+      for (let row = 0; row < levels; row++) {
+        displayRail[row] += row === level ? rail[level][0].replace(' ', '·') : ' ';
       }
+
       output += rail[level][0];
       rail[level] = rail[level].slice(1);
     }
+    setRailCipher(displayRail);
     setOutput(output);
   }
 
   return (
     <>
       <div className={styles.caesarShiftContainer}>
-        <div className={styles.caesarShift}>
-          <h2>Plaintext</h2>
-          {Array.from({ length: 26 }, (_, i) => (
-            <p key={i}>
-              {String.fromCharCode(65 + i)}
-            </p>
-          ))}
-        </div>
+        {Array.from({ length: levels }, (_, i) => (
+          <div key={i} className={styles.caesarShift}>
+            <h2>Row {i + 1}</h2>
+            {railCipher[i] && railCipher[i].split('').map((char, j) => (
+              <p key={j}>
+                {char}
+              </p>
+            ))}
+          </div>
+        ))}
       </div>
 
       <div className={styles.toolContent}>
@@ -425,7 +442,7 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
               value="top"
               checked={startingPosition === 'top'}
               onChange={() => setStartingPosition('top')}
-            /><label htmlFor="top">Top</label>
+            /><label htmlFor="top">Top (left) ↘↗</label>
           </div>
           <div className={styles.railRadio}>
             <input
@@ -434,7 +451,7 @@ const RailFenceCipher = ({ tool }: { tool: Record<string, string> }) => {
               value="bottom"
               checked={startingPosition === 'bottom'}
               onChange={() => setStartingPosition('bottom')}
-            /><label htmlFor="bottom">Bottom</label>
+            /><label htmlFor="bottom">Bottom (right) ↗↘</label>
           </div>
 
           <div className={styles.row}>

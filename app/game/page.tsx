@@ -8,8 +8,11 @@ import { useState, useEffect } from "react";
 export default function Game() {
   const [topLeftOpen, setTopLeftOpen] = useState(false);
   const [evidencePos, setEvidencePos] = useState([] as { top: string; left: string }[]);
-  const [currentStage, setCurrentStage] = useState<gameStage>(3); // change back to 1 for prod
+
+  const [currentStage, setCurrentStage] = useState<gameStage>(1);
   const currGameStage = gameStages[currentStage];
+  const [stageDialogShown, setStageDialogShown] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogTitle, setDialogTitle] = useState<string>("");
@@ -28,7 +31,6 @@ export default function Game() {
 
   const [input, setInput] = useState<string>("");
   const submit = () => {
-    console.log("submit", input);
     if (input === currGameStage.answer) {
       switch (currentStage) {
         case 1:
@@ -38,6 +40,7 @@ export default function Game() {
             () => {
               setCurrentStage(2);
               setTopLeftOpen(false);
+              setStageDialogShown(false);
             }
           );
           break;
@@ -51,6 +54,7 @@ export default function Game() {
             () => {
               setCurrentStage(3);
               setTopLeftOpen(false);
+              setStageDialogShown(false);
             }
           );
           break;
@@ -65,6 +69,45 @@ export default function Game() {
     }
     setInput("");
   }
+
+
+  useEffect(() => {
+    const stageValue = localStorage.getItem("currentStage");
+    const dialogvalue = localStorage.getItem("stageDialogShown");
+    if (stageValue) setCurrentStage(parseInt(stageValue) as gameStage);
+    if (dialogvalue) setStageDialogShown(dialogvalue === "true");
+    setLoaded(true);
+    setTimeout(() => {}, 100);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    localStorage.setItem("currentStage", currentStage.toString());
+    localStorage.setItem("stageDialogShown", stageDialogShown.toString());
+
+    if (stageDialogShown) return;
+    setStageDialogShown(true);
+
+    switch (currentStage) {
+      case 1:
+        handleDialog(
+          'Welcome to Cipher Game!',
+          <>
+            <p>This is a game about ciphers. You will learn about different ciphers and solve a mystery!</p>
+            <p>Use the evidences scattered around the map and the cipher tools to uncover the truth.</p>
+          </>,
+        );
+        break;
+      case 3:
+        handleDialog(
+          'Stage 3',
+          <p>You have unlocked the Vigenere Cipher tool!</p>,
+        );
+        break;
+      default:
+        break;
+    }
+  }, [loaded, stageDialogShown, currentStage]);
 
   useEffect(() => {
     const evidenceRef = document.getElementsByClassName(styles.evidence);
@@ -179,7 +222,7 @@ export default function Game() {
       </div>
 
       <div className={styles.gameContainer}>
-        {evidencePos.length > 0 && Object.entries(evidence[currentStage]).map(([key, value], index) => (
+        {evidencePos.length === Object.entries(evidence[currentStage]).length && Object.entries(evidence[currentStage]).map(([key, value], index) => (
           <div
             key={key}
             className={styles.evidence}

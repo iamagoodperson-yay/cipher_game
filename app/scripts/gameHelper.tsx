@@ -74,12 +74,6 @@ const stage2evidence: Record<number, Record<string, string>> = {
     "description": "1973-09-05",  
     "details": "<p>Dear HQ,</p><p>Vjg Rtqlgev jcu dggp eqorngvgf cpf ycu <strong>ujkrrgf qwv</strong> vjg fca chvgt kv ycu hkpkujgf. Kv ujqwnf pqv jcxg vcmgp oqtg vjcp c hgy fcau. Uqogqpg owuv jcxg kpvgtegrvgf kv. K yknn kpxguvkicvg vjku hwtvjgt cpf mggr aqw wrfcvgf</p><p>Best regards, Sparky</p>"
   }, // The Project has been completed and was *shipped out* the day after it was finished. It should not have taken more than a few days. Someone must have intercepted it. I will investigate this further and keep you updated.
-  8: {
-    "width": "20vw",
-    "description": "Message from Cipher Master",  
-    "details": "<p>I found these letter in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.</p>",
-    "bgcolor": "var(--main-evidence)",
-  },
 };
 
 const stage3evidence: Record<number, Record<string, string>> = {
@@ -133,10 +127,20 @@ const stage3evidence: Record<number, Record<string, string>> = {
 
 const stage4evidence: Record<number, Record<string, string>> = {
   1: {
-    "width": "20vw",
-    "description": "Placeholder",  
-    "details": "<p>Placeholder</p>"
+    "width": "25vw",
+    "description": "Tirol Industries Machigawa City Inventory",
+    "details": "<p>1973-07-06 13:05</p><p>Package SB-8614 opened.</p><br/><p>1973-07-06 13:10</p><p>Package SB-8914 placed in Storage Bay 36.</p>`<p>Status: SEALED</p><p>Contents: UNINSPECTED</p>"
   },
+  2: {
+    "width": "40vw",
+    "description": "Note recovered from Storage Bay 36",
+    "details": "<p>S1TERC8IEOITTABUQOOENETQB94SHRAPOETB64SHDCYDVREITBY6EASHICMRMSDOOSNITH8IELJS1TEIEDO3CESPIDTDO</p>"
+  },
+  3: {
+    "width": "25vw",
+    "description": "Page from Sparky's notebook from Storage Bay 36.",
+    "details": "<p>Undated entry.</p><br/><p>Had some trouble with the arrangement again. The letters themselves are fine, but putting them in the usual order defeats the purpose.</p><p><strong>Three rows</strong> seem to work best. Start at the top and keep moving down, then back up. Much harder to make sense of at a glance.</p>"
+  }
 };
 
 export type gameStage = 1 | 2 | 3 | 4;
@@ -166,19 +170,19 @@ export const gameStages: Record<gameStage, Record<string, string>> = {
     "3-locked": "true",
   },
   3: {
-    "objective": "Where did The Project go?",
+    "objective": "Where did The Project end up?",
     "input_type": "text",
-    "answer": "Tirol Industries Machigawa City",
+    "answer": "TIROL INDUSTRIES MACHIGAWA CITY",
     "1-locked": "false",
     "2-locked": "false",
     "3-locked": "true",
   },
   4 :{
-    "objective": "???",
+    "objective": "Who diverted The Project?",
     "input_type": "text",
-    "answer": "???",
+    "answer": "SPARKY",
     "1-locked": "false",
     "2-locked": "false",
-    "3-locked": "false",
+    "3-locked": "false"
   }
 };

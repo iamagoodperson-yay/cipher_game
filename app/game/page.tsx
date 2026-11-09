@@ -31,7 +31,7 @@ export default function Game() {
 
   const [input, setInput] = useState<string>("");
   const submit = () => {
-    if (input === currGameStage.answer) {
+    if (input.toLocaleUpperCase() === currGameStage.answer) {
       switch (currentStage) {
         case 1:
           handleDialog(
@@ -69,6 +69,33 @@ export default function Game() {
               setCurrentStage(4);
               setTopLeftOpen(false);
               setStageDialogShown(false);
+            }
+          );
+          break;
+        case 4:
+          handleDialog(
+            'You solved the mystery!',
+            <>
+              <p>The Project was never lost in transit. Sparky had deliberately diverted it to Tirol Industries in Machigawa City.</p>
+              <p>Fearing that HQ's communications had been compromised, Sparky decided that sending the Project there would put it at risk.</p>
+              <p>He fabricated the story of an intercepted shipment to conceal his actions, and left the Project sealed in Storage Bay 36.</p>
+              <p>It remains, waiting for a trusted individual to discover it.</p>
+            </>,
+            () => {
+              setTopLeftOpen(false);
+              setStageDialogShown(false);
+              handleDialog(
+                'Thanks for playing!',
+                <>
+                  <p>Hope you enjoyed playing!</p>
+                  <p>This will now redirect you to the home screen.</p>
+                </>,
+                () => {
+                  setCurrentStage(1);
+                  setTopLeftOpen(false);
+                  setStageDialogShown(false);
+                }
+              );
             }
           );
           break;
@@ -112,10 +139,22 @@ export default function Game() {
           </>,
         );
         break;
+      case 2:
+        handleDialog(
+          'Message from Cipher Master',
+          <p>I found these letter in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.</p>,
+        );
+        break;
       case 3:
         handleDialog(
-          'Stage 3',
-          <p>You have unlocked the Vigenere Cipher tool!</p>,
+          'Message from Cipher Master',
+          <p>You have unlocked the Vigenere Cipher tool. Use it wisely.</p>,
+        );
+        break;
+      case 4:
+        handleDialog(
+          'Message from Cipher Master',
+          <p>You have unlocked the Rail Fence Cipher tool. Use it wisely.</p>,
         );
         break;
       default:
@@ -246,7 +285,6 @@ export default function Game() {
               height: value.height, // px
               top: evidencePos[index].top,
               left: evidencePos[index].left,
-              backgroundColor: value.bgcolor || "none",
             }} 
           >
             <h2 className={styles.draggable}>{value.description}</h2>

@@ -1,15 +1,15 @@
 # Cipher Game
-Made for HackClub Terra (Week 2)  
+Made for HackClub Terra (Week 2 & Week 3)  
 
 # Description
 - Game where you learn about ciphers to/and solve a mystery!
 - Still being actively developed, currently only a demo
 - Tools
-  - Use the age old Ceaser Cipher (Vignère and Rail Fence Cipher (tbc) coming soon) to solve a puzzle (i dont even consider it a mystery (wow clickbait❗))
+  - Use Ceaser Cipher, Vignère Cipher, and Rail Fence Cipher to solve a mystery
 - Evidences
   - Words and like stuff that you can move around to solve the puzzle
 - Mystery
-  - Coming soon
+  - Find out what happened to The Project
 
 # How to demo
 ## Test out!
@@ -37,3 +37,6 @@ I was so washed when doing this project, I am so rusty at web dev 😭
 Had to search up stuff like 'how to change the colour of a div react' and 'how to convert string to number tsx'   
 But at least my good friends stack overflow and google came to the rescue   
 Also lowkey lost motivation midway but managed to pull through and at least do a short puzzle   
+## Week 3 Commentary
+Maybe this procrastinating thing isn't working out  
+I should do stuff earlier because I keep pushing it to the weekend and end up being really stressed and stuff but yeah

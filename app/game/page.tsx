@@ -83,6 +83,7 @@ export default function Game() {
               <p>It remains, waiting for a trusted individual to discover it.</p>
             </>,
             () => {
+              setCurrentStage(1);
               setTopLeftOpen(false);
               setStageDialogShown(false);
               setGameEnd(true);

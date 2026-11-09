@@ -143,7 +143,7 @@ const CeasarCipher = ({ tool }: { tool: Record<string, string> }) => {
               <p id="output">{output}</p>
             </div>
           }
-          
+
           <div className={styles.row}>
             <button
               className={styles.codeButton}
@@ -164,19 +164,93 @@ export default Tool;
 
 const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
   const [input, setInput] = useState('');
+  const [sanitizedInput, setSanitizedInput] = useState('');
   const [key, setKey] = useState('');
+  const [repeatingKey, setRepeatingKey] = useState('');
   const [output, setOutput] = useState('');
+  const [sanitizedOutput, setSanitizedOutput] = useState('');
 
   function encode() {
-    
+    var output = '';
+    var skipped = 0;
+    input.split('').forEach((char, index) => {
+      if (char.match(/[^a-zA-Z]/)) {
+        output += char;
+        skipped++;
+      } else {
+        const charCode = char.charCodeAt(0) - 65;
+        const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
+        const encodedChar = String.fromCharCode(((charCode + keyCode) % 26) + 65);
+        output += encodedChar;
+      }
+    });
+    setOutput(output);
   }
 
   function decode() {
-
+    var output = '';
+    var skipped = 0;
+    input.split('').forEach((char, index) => {
+      if (char.match(/[^a-zA-Z]/)) {
+        output += char;
+        skipped++;
+      } else {
+        const charCode = char.charCodeAt(0) - 65;
+        const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
+        const encodedChar = String.fromCharCode(((charCode - keyCode) % 26 + 26) + 65);
+        output += encodedChar;
+      }
+    });
+    setOutput(output);
   }
+
+  useEffect(() => {
+    const sanitizedInput = input.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    setSanitizedInput(sanitizedInput);
+
+    const sanitizedKey = key.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    if (sanitizedKey) {
+      const repeating = sanitizedKey.repeat(Math.ceil(sanitizedInput.length / sanitizedKey.length)).slice(0, sanitizedInput.length);
+      setRepeatingKey(repeating);
+    } else setRepeatingKey(' '.repeat(sanitizedInput.length));
+
+    setSanitizedOutput('');
+  }, [input, key]);
+
+  useEffect(() => {
+    const sanitizedOutput = output.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    setSanitizedOutput(sanitizedOutput);
+  }, [output]);
 
   return (
     <>
+      <div className={styles.caesarShiftContainer}>
+        <div className={styles.vigenereText}>
+          <h2>Plaintext</h2>
+          {Object.entries(sanitizedInput).map(([_, value], i) => (
+            <p key={i}>
+              {value}
+            </p>
+          ))}
+        </div>
+        <div className={styles.vigenereText}>
+          <h2>↓ Key</h2>
+          {Object.entries(repeatingKey).map(([_, value], i) => (
+            <p key={i}>
+              {value}
+            </p>
+          ))}
+        </div>
+        <div className={styles.vigenereText}>
+          <h2>Ciphertext</h2>
+          {Object.entries(sanitizedOutput).map(([_, value], i) => (
+            <p key={i}>
+              {value}
+            </p>
+          ))}
+        </div>
+      </div>
+
       <div className={styles.toolContent}>
         <div className={styles.explanation}>
           <h2>{tool.subtitle}</h2>
@@ -200,13 +274,6 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
             onChange={(e) => setKey(e.target.value)}
           />
 
-          {output && 
-            <div>
-              <h2>Output</h2>
-              <p id="output">{output}</p>
-            </div>
-          }
-
           <div className={styles.row}>
             <button
               className={styles.codeButton}
@@ -217,6 +284,13 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
               onClick={() => decode()}
             >Decode</button>
           </div>
+
+          {output && 
+            <div>
+              <h2>Output</h2>
+              <p id="output">{output}</p>
+            </div>
+          }
         </div>
       </div>
     </>

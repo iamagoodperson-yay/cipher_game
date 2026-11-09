@@ -61,7 +61,7 @@ const stage2evidence: Record<number, Record<string, string>> = {
   }, // The Project has been proceeding well, and we have received the parts required. Work will shortly commence. Expected to be completed in three months.
   5: {
     "width": "20vw",
-    "description": "1973-07-01",  
+    "description": "1973-07-03",  
     "details": "<p>Dear HQ,</p><p>Wkh Surmhfw lv frpsohwh. L kdyh whvwhg lw dqg lw zrunv dv hashfwhg. L zloo eh vhqglqj lw wr brx vkruwob.</p><p>Best regards, Sparky</p>"
   }, // The Project is complete. I have tested it and it works as expected. I will be sending it to you shortly.
   6: {
@@ -77,25 +77,75 @@ const stage2evidence: Record<number, Record<string, string>> = {
   8: {
     "width": "20vw",
     "description": "Message from Cipher Master",  
-    "details": "I found these letter in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.",
+    "details": "<p>I found these letter in the archives. They seem to be related to The Project and contain interesting information. I have included them here for your review. Read them carefully, the dates and contents may be important. Good luck, and let me know if you find anything interesting.</p>",
     "bgcolor": "var(--main-evidence)",
   },
 };
 
 const stage3evidence: Record<number, Record<string, string>> = {
   1: {
+    "width": "15vw",
+    "description": "Mail to HQ",  
+    "details": "<p>To: <strong>REDACTED</strong></p><br/><p>From: Sparky</p><p>4 Wood Lane</p><p>Stadtberg City</p>"
+  },
+  2: {
     "width": "20vw",
-    "description": "1973-07-04",  
-    "details": "Placeholder"
+    "description": "Attached to mail",  
+    "details": "<p>To: Whomever it may concern</p><p><strong>DO NOT OPEN OR TAMPER WITH CONTENTS</strong></p>"
+  },
+  3: {
+    "width": "20vw",
+    "description": "Tirol Industries Stadtberg City Records",  
+    "details": "<p>Weather for the hour: 7/10 <strong>SUNNY</strong></p><p>1973-07-04 14:27 Hupxyyy seme: Mgnblvree Ucgl Ngmg Bdxcpr pwwvrtwx</p><p>1973-07-04 14:31 Hupxyyy sbp Lcebj Ahqhqllvrq Eupugyujn Aanl fcfn gb: Qluqgzwlt Pgls Cbql Issguy</p>"
+    // 1973-07-04 14:27 Package from: Stadtberg City Post Office recieved
+    // 1973-07-04 14:31 Package for Tirol Industries Machigawa City sent to: Stadtberg City Post Office
+  },
+  4: {
+    "width": "30vw",
+    "description": "Records from Stadtberg City Post Office",  
+    "details": "<p>1973-07-04 15:32</p><p>Package from: 4 Wood Lane recieved</p><p>Given tracking ID: SB-8914</p><p>1973-07-04 15:35</p><p>Package from: Tirol Industries recieved</p><p>Given tracking ID: SB-8614</p><p>1973-07-04 15:39</p><p>Package MG-2718 recieved</p><p>...</p><p>1973-07-04 16:20</p><p>Package SB-8914 sent to: Rutthan City Post Office</p><p>1973-07-04 16:27</p><p></p>Package MG-2718 sent to: 24 Green St<p>1973-07-04 16:27</p><p>Package SB-8614 sent to: Machigawa City Post Office</p>"
+  },
+  5: {
+    "width": "30vw",
+    "description": "Records from Rutthan City Post Office",  
+    "details": "<p>1973-07-05 19:32</p>Package SB-8914 recieved</p><p>1973-07-05 19:35</p>Package MG-8914 sent to: 89 Commerce Rd</p><p>...</p><p>1973-07-05 19:40</p><p>Package SB-8914 sent to: Machigawa City Post Office</p><p>1973-07-05 19:41</p><p>Package from: 12 Pack Blvd received</p><p>Given tracking ID: RT-2049</p>"
+  },
+  6: {
+    "width": "30vw",
+    "description": "Machigawa City Post Office Records",  
+    "details": "<p>1973-07-06 08:40</p><p>Package SB-8614 from: Stadtberg City Post Office recieved</p><p><p>1973-07-06 08:46</p><p>Package from: 4-9-3-chome received</p><p></p>Given Tracking ID: MG-0781<p>...</p><p>1973-07-06 11:33</p><p>Package MG-0781 sent to: Rutthan City Post Office</p><p>1973-07-06 11:40</p><p>Package SB-8914 recieved from: Rutthan City Post Office</p><p>1973-07-06 11:42</p><p>Package SB-8914 sent to: Tirol Industries Machigawa City</p><p>1973-07-06 11:43</p><p>Package SB-8614 sent to: Tirol Industries Machigawa City</p>"
+  },
+  7: {
+    "width": "25vw",
+    "description": "Tirol Industries Machigawa City Records",  
+    "details": "<p>Weather for the hour: <strong>4</strong>/10 RAINY</p><p>1973-07-06 12:53 Tegoeki xs: Xmvsp Mrhywxvmiw Vyxxler Gmxc wirx</p><p>1973-07-06 12:58 Tegoekiw jvsq: Qeglmkeae Gmxc Tswx Sjjmgi vigmizih</p><br/><p>Weather for the hour: <strong>CLOUDY</strong></p><p>1973-07-06 13:05 Rlqedeg Dwyupc Mfuym - Gtubw Qki Chh Dqff zumo: Xowkgilku Fgvj Divr Qqtcfc qashhb</p><p>1973-07-06 13:10 Rlqedeg Dwyupc Mfuym - Gtubw Lkys Iqc Hzil ipqx: Auffkroqd Akem Jrqv Ztzlag ain ll uecldeg</p>"
+    // 1973-07-06 12:53 Package to: Tirol Industries Rutthan City sent
+    // 1973-07-06 12:58 Packages from: Machigawa City Post Office recieved
+    // 1973-07-06 13:05 Package Sierra Bravo - Eight Six One Four from: Machigawa City Post Office opened
+    // 1973-07-06 13:10 Package Sierra Bravo - Eight Nine One Four from: Machigawa City Post Office put in storage
+  },
+  8: {
+    "width": "20vw",
+    "description": "89 Commerce Rd Records",
+    "details": "<p>1973-07-05 20:35</p><p>Package MG-8914 recieved</p>"
+  }
+};
+
+const stage4evidence: Record<number, Record<string, string>> = {
+  1: {
+    "width": "20vw",
+    "description": "Placeholder",  
+    "details": "<p>Placeholder</p>"
   },
 };
 
-export type gameStage = 1 | 2 | 3;
+export type gameStage = 1 | 2 | 3 | 4;
 
 export const evidence: Record<gameStage, Record<number, Record<string, string>>> = {
   1: stage1evidence,
   2: stage2evidence,
   3: stage3evidence,
+  4: stage4evidence,
 };
 
 export const gameStages: Record<gameStage, Record<string, string>> = {
@@ -116,11 +166,19 @@ export const gameStages: Record<gameStage, Record<string, string>> = {
     "3-locked": "true",
   },
   3: {
-    "objective": "???",
+    "objective": "Where did The Project go?",
     "input_type": "text",
-    "answer": "PLACEHOLDER",
+    "answer": "Tirol Industries Machigawa City",
     "1-locked": "false",
     "2-locked": "false",
     "3-locked": "true",
   },
+  4 :{
+    "objective": "???",
+    "input_type": "text",
+    "answer": "???",
+    "1-locked": "false",
+    "2-locked": "false",
+    "3-locked": "true",
+  }
 };

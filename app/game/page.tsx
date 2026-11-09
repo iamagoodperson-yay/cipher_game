@@ -58,6 +58,20 @@ export default function Game() {
             }
           );
           break;
+        case 3:
+          handleDialog(
+            'You got it!',
+            <>
+              <p>A shipping mistake caused The Project to be sent to Tirol Industries Machigawa City.</p>
+              <p>What happened next?</p>
+            </>,
+            () => {
+              setCurrentStage(4);
+              setTopLeftOpen(false);
+              setStageDialogShown(false);
+            }
+          );
+          break;
         default:
           break;
       }

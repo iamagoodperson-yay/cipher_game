@@ -174,14 +174,19 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
     var output = '';
     var skipped = 0;
     input.split('').forEach((char, index) => {
-      if (char.match(/[^a-zA-Z]/)) {
-        output += char;
-        skipped++;
-      } else {
+      if (char.match(/[A-Z]/)) {
         const charCode = char.charCodeAt(0) - 65;
         const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
         const encodedChar = String.fromCharCode(((charCode + keyCode) % 26) + 65);
         output += encodedChar;
+      } else if (char.match(/[a-z]/)) {
+        const charCode = char.charCodeAt(0) - 97;
+        const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
+        const encodedChar = String.fromCharCode(((charCode + keyCode) % 26) + 97);
+        output += encodedChar;
+      } else {
+        output += char;
+        skipped++;
       }
     });
     setOutput(output);
@@ -191,14 +196,19 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
     var output = '';
     var skipped = 0;
     input.split('').forEach((char, index) => {
-      if (char.match(/[^a-zA-Z]/)) {
-        output += char;
-        skipped++;
-      } else {
+      if (char.match(/[A-Z]/)) {
         const charCode = char.charCodeAt(0) - 65;
         const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
-        const encodedChar = String.fromCharCode(((charCode - keyCode) % 26 + 26) + 65);
+        const encodedChar = String.fromCharCode(((charCode - keyCode + 26) % 26) + 65);
         output += encodedChar;
+      } else if (char.match(/[a-z]/)) {
+        const charCode = char.charCodeAt(0) - 97;
+        const keyCode = repeatingKey[index - skipped].charCodeAt(0) - 65;
+        const encodedChar = String.fromCharCode(((charCode - keyCode + 26) % 26) + 97);
+        output += encodedChar;
+      } else {
+        output += char;
+        skipped++;
       }
     });
     setOutput(output);
@@ -226,7 +236,7 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
     <>
       <div className={styles.caesarShiftContainer}>
         <div className={styles.vigenereText}>
-          <h2>Plaintext</h2>
+          <h2>Input</h2>
           {Object.entries(sanitizedInput).map(([_, value], i) => (
             <p key={i}>
               {value}
@@ -242,7 +252,7 @@ const VigenereCipher = ({ tool }: { tool: Record<string, string> }) => {
           ))}
         </div>
         <div className={styles.vigenereText}>
-          <h2>Ciphertext</h2>
+          <h2>Output</h2>
           {Object.entries(sanitizedOutput).map(([_, value], i) => (
             <p key={i}>
               {value}
